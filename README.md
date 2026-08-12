@@ -670,28 +670,19 @@ beamerthemeHBUE.sty
 ## 色板预览
 
 ### 校徽红系列
-
-```
-████████  HBUEred        #CA001D
-████████  HBUEredDark    #8F0012
-████████  HBUEredLight   #FAEBED
-```
+<span style="display:inline-block; width:20px; height:20px; background-color:#CA001D; border-radius:4px; vertical-align:middle;"></span> HBUEred        #CA001D
+<span style="display:inline-block; width:20px; height:20px; background-color:#8F0012; border-radius:4px; vertical-align:middle;"></span> HBUEredDark    #8F0012
+<span style="display:inline-block; width:20px; height:20px; background-color:#FAEBED; border:1px solid #ddd; border-radius:4px; vertical-align:middle;"></span> HBUEredLight   #FAEBED
 
 ### 凤凰黄系列
-
-```
-████████  HBUEyellow     #FFF100
-████████  HBUEgold       #C08A00
-████████  HBUEgoldDark   #926800
-```
+<span style="display:inline-block; width:20px; height:20px; background-color:#FFF100; border-radius:4px; vertical-align:middle;"></span> HBUEyellow     #FFF100
+<span style="display:inline-block; width:20px; height:20px; background-color:#C08A00; border-radius:4px; vertical-align:middle;"></span> HBUEgold       #C08A00
+<span style="display:inline-block; width:20px; height:20px; background-color:#926800; border-radius:4px; vertical-align:middle;"></span> HBUEgoldDark   #926800
 
 ### 官网蓝系列
-
-```
-████████  HBUEblue       #084B9D
-████████  HBUEblueDark   #05346E
-████████  HBUEblueLight  #E8F0FA
-```
+<span style="display:inline-block; width:20px; height:20px; background-color:#084B9D; border-radius:4px; vertical-align:middle;"></span> HBUEblue       #084B9D
+<span style="display:inline-block; width:20px; height:20px; background-color:#05346E; border-radius:4px; vertical-align:middle;"></span> HBUEblueDark   #05346E
+<span style="display:inline-block; width:20px; height:20px; background-color:#E8F0FA; border:1px solid #ccc; border-radius:4px; vertical-align:middle;"></span> HBUEblueLight  #E8F0FA
 
 # 设计参考 / Design References
 
