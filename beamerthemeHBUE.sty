@@ -1,0 +1,474 @@
+% =============================================================================
+%  beamerthemeHBUE.sty — 湖北经济学院 Beamer 主题模板 v4.0
+%  Hubei University of Economics (HBUE) Beamer Presentation Theme
+% =============================================================================
+%  官方视觉依据:
+%    校徽"腾飞的经院"标准色: 校徽红 #CA001D + 凤凰黄 #FFF100
+%    学校官网 UI 主色:        官网蓝 #084B9D
+%    校训: 厚德博学 · 经世济民 (2006 年确定, 陈义经题写)
+%    校名: 毛泽东书法集字
+%  设计参考: SJTUBeamer, USTCBeamer, metropolis
+%  许可: LPPL 1.3c
+% =============================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeHBUE}[2026/08/12 v4.0 HBUE Beamer Theme]
+
+% =============================================================================
+% 1. 选项 / Options
+% =============================================================================
+\newif\ifHBUE@dark\HBUE@darkfalse
+\newif\ifHBUE@blue\HBUE@bluefalse
+\newif\ifHBUE@nologo\HBUE@nologofalse
+
+\DeclareOption{dark}{\HBUE@darktrue}      % 深色模式
+\DeclareOption{blue}{\HBUE@bluetrue}      % 官网蓝主色 (默认: 校徽红)
+\DeclareOption{nologo}{\HBUE@nologotrue}  % 不加载校徽图片
+\DeclareOption*{\PackageWarning{beamerthemeHBUE}{Unknown option '\CurrentOption'}}
+\ProcessOptions\relax
+
+% =============================================================================
+% 2. 依赖包 / Packages
+%    注意: 中文支持由文档类 (ctexbeamer) 负责, 主题不加载 ctex/CJKutf8,
+%          避免 "Package ctex can not be loaded with ctexbeamer" 冲突。
+% =============================================================================
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+\RequirePackage{etoolbox}
+
+% =============================================================================
+% 3. 调色板 / Colors (全部取自学校官方素材实测值)
+% =============================================================================
+
+% 校徽红 — "腾飞的经院"官方 SVG 实测 #CA001D
+\definecolor{HBUEred}{RGB}{202,0,29}
+\definecolor{HBUEredDark}{RGB}{143,0,18}
+\definecolor{HBUEredLight}{RGB}{250,235,237}
+
+% 凤凰黄 — 官方 SVG 实测 #FFF100, 及正文可用的深色变体
+\definecolor{HBUEyellow}{RGB}{255,241,0}
+\definecolor{HBUEgold}{RGB}{192,138,0}
+\definecolor{HBUEgoldDark}{RGB}{146,104,0}
+
+% 官网蓝 — hbue.edu.cn 页面主色实测 #084B9D
+\definecolor{HBUEblue}{RGB}{8,75,157}
+\definecolor{HBUEblueDark}{RGB}{5,52,110}
+\definecolor{HBUEblueLight}{RGB}{232,240,250}
+
+% 中性色
+\definecolor{HBUEwhite}{RGB}{255,255,255}
+\definecolor{HBUEdark}{RGB}{33,33,40}
+\definecolor{HBUEgray}{RGB}{120,120,130}
+\definecolor{HBUEgrayLight}{RGB}{225,225,230}
+\definecolor{HBUEgrayBg}{RGB}{248,248,250}
+\definecolor{HBUEgreen}{RGB}{46,125,50}
+
+% 主题色映射: 默认校徽红; [blue] 切换为官网蓝
+\ifHBUE@blue
+  \colorlet{HBUE@main}{HBUEblue}
+  \colorlet{HBUE@mainDark}{HBUEblueDark}
+  \colorlet{HBUE@mainLight}{HBUEblueLight}
+  \colorlet{HBUE@alert}{HBUEred}        % 蓝色模式下警示块用校徽红
+  \colorlet{HBUE@alertDark}{HBUEredDark}
+\else
+  \colorlet{HBUE@main}{HBUEred}
+  \colorlet{HBUE@mainDark}{HBUEredDark}
+  \colorlet{HBUE@mainLight}{HBUEredLight}
+  \colorlet{HBUE@alert}{HBUEgold}       % 红色模式下警示块用凤凰金
+  \colorlet{HBUE@alertDark}{HBUEgoldDark}
+\fi
+\colorlet{HBUE@accent}{HBUEgold}        % 点缀色: 凤凰金的正文可用版
+
+% =============================================================================
+% 4. Beamer 颜色映射 / Beamer Color Mapping
+% =============================================================================
+\ifHBUE@dark
+  \setbeamercolor{normal text}{fg=HBUEgrayLight,bg=HBUEdark}
+  \setbeamercolor{structure}{fg=HBUE@main!60!white}
+  \setbeamercolor{background canvas}{bg=HBUEdark}
+  \setbeamercolor{frametitle}{fg=white}
+  \setbeamercolor{framesubtitle}{fg=HBUEgray}
+  \setbeamercolor{frametitle rule}{bg=HBUEwhite!25!HBUEdark}
+  \setbeamercolor{title}{fg=white}
+  \setbeamercolor{subtitle}{fg=HBUEgrayLight}
+  \setbeamercolor{author}{fg=HBUEgrayLight}
+  \setbeamercolor{institute}{fg=HBUEgray}
+  \setbeamercolor{date}{fg=HBUEgray}
+  \setbeamercolor{headline}{fg=HBUEgrayLight,bg=HBUEdark}
+  \setbeamercolor{footline}{fg=HBUEgray,bg=HBUEdark}
+  \setbeamercolor{separation line}{bg=HBUEgray!40!HBUEdark}
+  \setbeamercolor{block title}{fg=white,bg=HBUE@mainDark}
+  \setbeamercolor{block body}{fg=HBUEgrayLight,bg=HBUEwhite!7!HBUEdark}
+  \setbeamercolor{block title example}{fg=white,bg=HBUEgreen!60!black}
+  \setbeamercolor{block body example}{fg=HBUEgrayLight,bg=HBUEwhite!7!HBUEdark}
+  \setbeamercolor{block title alerted}{fg=white,bg=HBUE@alertDark}
+  \setbeamercolor{block body alerted}{fg=HBUEgrayLight,bg=HBUEwhite!7!HBUEdark}
+  \setbeamercolor{item}{fg=HBUE@main!60!white}
+  \setbeamercolor{subitem}{fg=HBUE@accent!70!white}
+  \setbeamercolor{section in toc}{fg=HBUEgrayLight}
+  \setbeamercolor{alerted text}{fg=HBUEred!55!white}
+  \setbeamercolor{example text}{fg=HBUEgreen!40!white}
+  \setbeamercolor{section page number}{fg=HBUEwhite!14!HBUEdark}
+  \setbeamercolor{section page title}{fg=white}
+  \setbeamercolor{progress track}{bg=HBUEwhite!15!HBUEdark}
+  \colorlet{HBUE@motto}{HBUEgray}
+\else
+  \setbeamercolor{normal text}{fg=HBUEdark,bg=HBUEwhite}
+  \setbeamercolor{structure}{fg=HBUE@main}
+  \setbeamercolor{background canvas}{bg=HBUEwhite}
+  \setbeamercolor{frametitle}{fg=HBUEdark}
+  \setbeamercolor{framesubtitle}{fg=HBUEgray}
+  \setbeamercolor{frametitle rule}{bg=HBUE@main!30!HBUEgrayLight}
+  \setbeamercolor{title}{fg=HBUE@mainDark}
+  \setbeamercolor{subtitle}{fg=HBUEdark!65!HBUEgray}
+  \setbeamercolor{author}{fg=HBUEdark}
+  \setbeamercolor{institute}{fg=HBUEgray}
+  \setbeamercolor{date}{fg=HBUEgray}
+  \setbeamercolor{headline}{fg=HBUEgray,bg=HBUEwhite}
+  \setbeamercolor{footline}{fg=HBUEgray,bg=HBUEwhite}
+  \setbeamercolor{separation line}{bg=HBUE@main!30!HBUEgrayLight}
+  \setbeamercolor{block title}{fg=white,bg=HBUE@main}
+  \setbeamercolor{block body}{fg=HBUEdark,bg=HBUE@mainLight}
+  \setbeamercolor{block title example}{fg=white,bg=HBUEgreen}
+  \setbeamercolor{block body example}{fg=HBUEdark,bg=HBUEgreen!7!white}
+  \setbeamercolor{block title alerted}{fg=white,bg=HBUE@alertDark}
+  \setbeamercolor{block body alerted}{fg=HBUEdark,bg=HBUE@alert!8!white}
+  \setbeamercolor{item}{fg=HBUE@main}
+  \setbeamercolor{subitem}{fg=HBUE@accent}
+  \setbeamercolor{section in toc}{fg=HBUEdark}
+  \setbeamercolor{alerted text}{fg=HBUEred}
+  \setbeamercolor{example text}{fg=HBUEgreen}
+  \setbeamercolor{section page number}{fg=HBUE@main!18}
+  \setbeamercolor{section page title}{fg=HBUEdark}
+  \setbeamercolor{progress track}{bg=HBUEgrayLight}
+  \colorlet{HBUE@motto}{HBUE@main!45!HBUEgray}
+\fi
+
+\setbeamercolor{palette primary}{fg=white,bg=HBUE@main}
+\setbeamercolor{palette secondary}{fg=white,bg=HBUE@mainDark}
+\setbeamercolor{section number projected}{bg=HBUE@main,fg=white}
+\setbeamercolor{caption}{fg=HBUEgray}
+\setbeamercolor{caption name}{fg=HBUE@main}
+\setbeamercolor{qed symbol}{fg=HBUE@main}
+\setbeamercolor{bibliography entry author}{fg=HBUEdark}
+\setbeamercolor{bibliography entry title}{fg=HBUE@main}
+
+% =============================================================================
+% 5. 字体 / Fonts
+% =============================================================================
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{institute}{size=\small}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\normalsize}
+\setbeamerfont{footline}{size=\scriptsize}
+\setbeamerfont{headline}{size=\scriptsize}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamerfont{caption}{size=\small}
+\setbeamerfont{section in toc}{size=\large}
+
+% =============================================================================
+% 6. 自定义信息命令 / Custom Metadata
+% =============================================================================
+\newcommand{\hbue}{湖北经济学院}
+\newcommand{\HBUE}{Hubei University of Economics}
+\let\insertsupervisor\@empty
+\newcommand{\supervisor}[1]{\def\insertsupervisor{#1}}
+\newcommand{\hl}[1]{\textcolor{HBUE@main}{\textbf{#1}}}   % 主色高亮
+\newcommand{\hlg}[1]{\textcolor{HBUE@accent}{\textbf{#1}}} % 金色高亮
+
+% =============================================================================
+% 7. 内部主题 / Inner Theme
+% =============================================================================
+
+% --- 7.1 标题页 ---
+\defbeamertemplate*{title page}{HBUE}[1][]
+{%
+  \vspace*{0.4cm}
+
+  % 校名横幅 (完整 Logo: 校徽 + 毛体校名 + 英文名)
+  \begin{beamercolorbox}[center]{}
+    \ifHBUE@nologo
+      {\Large\bfseries\color{HBUE@main} 湖北经济学院}%
+      \par\vskip0.3em
+      {\footnotesize\color{HBUEgray} HUBEI UNIVERSITY OF ECONOMICS}%
+    \else
+      \IfFileExists{figures/hbue-logo-full.pdf}{%
+        \includegraphics[height=1.3cm]{figures/hbue-logo-full.pdf}%
+      }{%
+        {\Large\bfseries\color{HBUE@main} 湖北经济学院}%
+        \par\vskip0.3em
+        {\footnotesize\color{HBUEgray} HUBEI UNIVERSITY OF ECONOMICS}%
+      }%
+    \fi
+  \end{beamercolorbox}
+
+  \vskip0.45cm
+
+  % 红+黄分隔线 (呼应校徽配色)
+  \begin{beamercolorbox}[wd=\textwidth,center]{}
+    {\color{HBUE@main}\rule{2.6cm}{1.4pt}}{\color{HBUEyellow}\rule{0.55cm}{1.4pt}}
+  \end{beamercolorbox}
+
+  \vskip0.5cm
+
+  % 标题
+  \begin{beamercolorbox}[wd=\textwidth,center]{title}
+    \usebeamerfont{title}\inserttitle\par
+  \end{beamercolorbox}
+
+  % 副标题
+  \ifx\insertsubtitle\@empty\else
+    \vskip0.3cm
+    \begin{beamercolorbox}[wd=\textwidth,center]{subtitle}
+      \usebeamerfont{subtitle}\insertsubtitle\par
+    \end{beamercolorbox}
+  \fi
+
+  \vskip0.5cm
+
+  % 汇报人
+  \begin{beamercolorbox}[wd=\textwidth,center]{author}
+    \usebeamerfont{author}\insertauthor
+  \end{beamercolorbox}
+
+  % 指导教师 (若设置)
+  \ifx\insertsupervisor\@empty\else
+    \vskip0.15cm
+    \begin{beamercolorbox}[wd=\textwidth,center]{institute}
+      指导教师: \insertsupervisor
+    \end{beamercolorbox}
+  \fi
+
+  % 单位
+  \ifx\insertinstitute\@empty\else
+    \vskip0.15cm
+    \begin{beamercolorbox}[wd=\textwidth,center]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+  \fi
+
+  % 日期
+  \vskip0.15cm
+  \begin{beamercolorbox}[wd=\textwidth,center]{date}
+    \usebeamerfont{date}\insertdate
+  \end{beamercolorbox}
+
+  \vfill
+
+  % 校训
+  \begin{beamercolorbox}[wd=\textwidth,center]{}
+    {\footnotesize\color{HBUE@motto} 厚德博学\quad 经世济民}
+  \end{beamercolorbox}
+
+  \vspace*{0.35cm}
+}
+
+% --- 7.2 目录 ---
+\setbeamertemplate{section in toc}{%
+  \leavevmode
+  {\usebeamerfont{section in toc}%
+   \textcolor{HBUE@main}{\bfseries\inserttocsectionnumber.}\kern0.6em
+   \usebeamercolor[fg]{section in toc}\inserttocsection\par}%
+  \vskip0.2em
+}
+\setbeamertemplate{subsection in toc}{%
+  \leavevmode
+  \leftskip=2.2em
+  {\usebeamercolor[fg]{subsection in toc}%
+   \textcolor{HBUE@main}{—}\kern0.5em\inserttocsubsection\par}%
+  \vskip0.2em
+}
+
+% --- 7.3 列表符号 ---
+\setbeamertemplate{itemize item}{\scriptsize\raisebox{0.3ex}{$\blacksquare$}}
+\setbeamertemplate{itemize subitem}{\tiny\raisebox{0.3ex}{$\bullet$}}
+\setbeamertemplate{itemize subsubitem}{\raisebox{0.2ex}{$-$}}
+\setbeamertemplate{enumerate item}{\insertenumlabel.}
+\setbeamertemplate{enumerate subitem}{\insertsubenumlabel.}
+
+% --- 7.4 块 ---
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+% --- 7.5 定理 ---
+% amsthm 的 plain 样式在定理正文中使用 \itshape, 而中文字体无斜体设计,
+% 会产生 "Font shape TU/.../m/it undefined" 警告; 中文排版惯例为直立字形。
+\def\th@plain{\normalfont}
+\setbeamertemplate{theorem begin}{%
+  \begin{\inserttheoremblockenv}{%
+    \inserttheoremname
+    \ifx\inserttheoremaddition\@empty\else\ (\inserttheoremaddition)\fi}%
+}
+\setbeamertemplate{theorem end}{\end{\inserttheoremblockenv}}
+
+% =============================================================================
+% 8. 外部主题 / Outer Theme
+%    注意: 页眉/页脚中并列的 beamercolorbox 之间不要加 \leavevmode,
+%          否则两个全宽色盒会被排在同一水平盒中, 造成超宽警告。
+% =============================================================================
+
+% --- 8.1 顶部 / Headline ---
+\defbeamertemplate*{headline}{HBUE}
+{%
+  \begin{beamercolorbox}[wd=\paperwidth, ht=2.4ex, dp=1.0ex,
+    leftskip=0.7cm, rightskip=0.7cm]{headline}%
+    \usebeamerfont{headline}%
+    \ifx\insertsection\@empty
+      \hspace{0.5em}%
+    \else
+      \insertsectionhead
+    \fi
+    \hfill
+    \insertshorttitle
+  \end{beamercolorbox}%
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth, ht=0.5pt]{separation line}\end{beamercolorbox}%
+}
+
+% --- 8.2 帧标题 / Frame Title ---
+\defbeamertemplate*{frametitle}{HBUE}
+{%
+  \vskip0.9ex
+  \leavevmode
+  \hbox{%
+    {\usebeamercolor[bg]{palette primary}\rule[-1.2ex]{2.6pt}{3.9ex}}%
+    \hskip0.6em
+    \begin{minipage}[t]{\dimexpr\textwidth-2.6pt-0.6em\relax}
+      \usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par
+      \ifx\insertframesubtitle\@empty\else
+        \vskip0.3ex
+        {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}%
+      \fi
+    \end{minipage}%
+  }%
+  \par
+  \vskip0.6ex
+  {\usebeamercolor[bg]{frametitle rule}\hrule height 0.5pt\relax}%
+  \vskip1.0ex
+}
+
+% --- 8.3 页脚 / Footline ---
+\defbeamertemplate*{footline}{HBUE}
+{%
+  \begin{beamercolorbox}[wd=\paperwidth, ht=0.5pt]{separation line}\end{beamercolorbox}%
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth, ht=2.6ex, dp=1.4ex,
+    leftskip=0.7cm, rightskip=0.7cm]{footline}%
+    \usebeamerfont{footline}%
+    \ifHBUE@nologo\else
+      \IfFileExists{figures/hbue-logo.pdf}{%
+        \raisebox{-0.35ex}{\includegraphics[height=1.6ex]{figures/hbue-logo.pdf}}\hspace{0.4em}%
+      }{}%
+    \fi
+    \ifx\insertshortauthor\@empty
+      \insertshorttitle
+    \else
+      \insertshortauthor
+    \fi
+    \ifx\insertsupervisor\@empty\else
+      \hspace{0.35em}\textcolor{HBUEgray}{·}\hspace{0.35em}指导教师: \insertsupervisor
+    \fi
+    \hspace{0.35em}\textcolor{HBUEgray}{·}\hspace{0.35em}\hbue
+    \hfill
+    \textcolor{HBUE@main}{\insertframenumber}\,/\,\inserttotalframenumber
+  \end{beamercolorbox}%
+}
+
+% --- 8.4 导航符号 ---
+\setbeamertemplate{navigation symbols}{}
+
+% --- 8.5 背景 ---
+\setbeamertemplate{background}{}
+
+% --- 8.6 章节过渡页 (含迷你进度条) ---
+\newcommand{\HBUE@totalsections}{1}
+\AtEndDocument{%
+  \clearpage
+  \immediate\write\@mainaux{%
+    \string\gdef\string\HBUE@totalsections{\arabic{section}}}%
+}
+
+\AtBeginSection[]
+{%
+  {%
+    \setbeamertemplate{headline}{}%
+    \setbeamertemplate{footline}{}%
+    \begin{frame}[plain, noframenumbering]
+      \vspace*{\fill}
+      \begin{beamercolorbox}[wd=\textwidth, center]{}
+        {\usebeamercolor[fg]{section page number}\fontsize{40}{46}\selectfont\bfseries\thesection}
+        \par\vskip0.35cm
+        {\usebeamercolor[fg]{section page title}\Large\bfseries\insertsection}
+        \par\vskip0.4cm
+        {\color{HBUE@main}\rule{2.2cm}{1.3pt}}{\color{HBUEyellow}\rule{0.45cm}{1.3pt}}
+      \end{beamercolorbox}
+      \vspace*{\fill}
+      \begin{center}
+        \begin{tikzpicture}
+          \usebeamercolor{progress track}
+          \fill[bg] (0,0) rectangle (0.6\textwidth,1.5pt);
+          \usebeamercolor{palette primary}
+          \fill[bg] (0,0) rectangle
+            ({0.6\textwidth*\thesection/\HBUE@totalsections},1.5pt);
+        \end{tikzpicture}
+      \end{center}
+      \vspace{0.4cm}
+    \end{frame}%
+  }%
+}
+
+% --- 8.7 致谢页 ---
+\newcommand{\thankyoupage}{%
+  {%
+    \setbeamertemplate{headline}{}
+    \setbeamertemplate{footline}{}
+    \begin{frame}[plain, noframenumbering]
+      \vspace*{\fill}
+      \begin{beamercolorbox}[wd=\textwidth, center]{}
+        {\usebeamercolor[fg]{title}\fontsize{40}{48}\selectfont\bfseries 谢谢聆听}
+        \par\vskip0.4cm
+        {\Large\color{HBUEgray} THANK YOU}
+        \par\vskip0.45cm
+        {\color{HBUE@main}\rule{2.6cm}{1.3pt}}{\color{HBUEyellow}\rule{0.55cm}{1.3pt}}
+        \par\vskip0.5cm
+        {\normalsize\color{HBUEgray} \hbue \quad \HBUE}
+      \end{beamercolorbox}
+      \vspace*{\fill}
+      \begin{beamercolorbox}[wd=\textwidth, center]{}
+        {\footnotesize\color{HBUE@motto} 厚德博学\quad 经世济民}
+      \end{beamercolorbox}
+      \vspace{0.4cm}
+    \end{frame}
+  }%
+}
+
+% --- 8.8 目录快捷命令 ---
+\newcommand{\tocpage}{%
+  \begin{frame}{目录}
+    \tableofcontents[hideallsubsections]
+  \end{frame}
+}
+\newcommand{\tocpagedetail}{%
+  \begin{frame}{目录}
+    \tableofcontents
+  \end{frame}
+}
+
+% =============================================================================
+% 9. 杂项 / Misc
+% =============================================================================
+
+% beamer 的 quote 字体默认带 \itshape, 中文字体无斜体, 显式改为直立
+\setbeamercolor{quote}{fg=HBUEgray}
+\setbeamerfont{quote}{size=\footnotesize,shape=\upshape}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=.,  % 内部链接继承当前文字颜色, 避免页眉/目录被染成主色
+  urlcolor=HBUE@main!70!HBUEdark,
+  citecolor=HBUE@accent,
+}
+
+\endinput

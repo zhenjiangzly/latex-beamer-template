@@ -1,0 +1,344 @@
+% =============================================================================
+%  HBUE-demo.tex — 湖北经济学院 Beamer 模板示例
+%  Hubei University of Economics Beamer Template Demo
+% =============================================================================
+%  编译: xelatex HBUE-demo.tex (推荐 XeLaTeX, 需编译两遍以生成进度条)
+%
+%  主题选项:
+%    \usetheme{HBUE}         默认: 校徽红 + 浅色
+%    \usetheme[blue]{HBUE}   官网蓝主色调
+%    \usetheme[dark]{HBUE}   深色模式
+%    \usetheme[nologo]{HBUE} 不加载校徽
+% =============================================================================
+
+\documentclass[aspectratio=169, 10pt, UTF8]{ctexbeamer}
+
+\usetheme{HBUE}
+
+% ── 元信息 ──
+\title[HBUE Beamer 模板]{湖北经济学院\\Beamer 演示文稿模板}
+\subtitle{基于 \LaTeX{} Beamer 的学术演示解决方案}
+\author[张三]{张\ 三}
+\supervisor{李四\ 教授}
+\institute[HBUE]{湖北经济学院\ \ 信息管理学院\\Hubei University of Economics}
+\date{\today}
+
+% ── 可选包 ──
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+
+\begin{document}
+
+% ═══════════════════════════════════════════
+%  标题页
+% ═══════════════════════════════════════════
+{
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}
+}
+
+% ═══════════════════════════════════════════
+%  目录
+% ═══════════════════════════════════════════
+\tocpage
+
+% ═══════════════════════════════════════════
+%  1. 模板简介
+% ═══════════════════════════════════════════
+\section{模板简介}
+
+\begin{frame}{设计理念}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \textbf{设计参考:}
+      \begin{itemize}
+        \item SJTUBeamer — 上海交通大学
+        \item USTCBeamer — 中国科学技术大学
+        \item University-Presentation-Beamer
+        \item Metropolis 现代极简风格
+      \end{itemize}
+      \vspace{0.8em}
+      \textbf{技术栈:}
+      \begin{itemize}
+        \item XeLaTeX + ctexbeamer
+        \item TikZ 矢量绘图
+        \item 16:9 宽屏比例
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{视觉识别 (VIS)}
+        校训: 厚德博学\ 经世济民\\
+        校徽: 腾飞的经院 (凤凰 + E + U)\\
+        校徽红: \texttt{\#CA001D} (主色)\\
+        凤凰黄: \texttt{\#FFF100} (点缀)\\
+        官网蓝: \texttt{\#084B9D} (可选主色)
+      \end{block}
+      \begin{alertblock}{编译要求}
+        请使用 \textbf{XeLaTeX} 编译\\
+        Overleaf 需切换编译器
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{主题选项}
+  本模板支持以下主题选项组合:
+  \vspace{0.5em}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{exampleblock}{校徽红主题 (默认)}
+        \texttt{\textbackslash usetheme\{HBUE\}}
+      \end{exampleblock}
+      \begin{exampleblock}{深色模式}
+        \texttt{\textbackslash usetheme[dark]\{HBUE\}}
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{exampleblock}{官网蓝主题}
+        \texttt{\textbackslash usetheme[blue]\{HBUE\}}
+      \end{exampleblock}
+      \begin{exampleblock}{隐藏校徽}
+        \texttt{\textbackslash usetheme[nologo]\{HBUE\}}
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+  \vspace{0.5em}
+  选项可自由组合,如 \texttt{[blue, dark]}.
+\end{frame}
+
+% ═══════════════════════════════════════════
+%  2. 基础排版
+% ═══════════════════════════════════════════
+\section{基础排版}
+
+\begin{frame}{列表与强调}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{无序列表:}
+      \begin{itemize}
+        \item 第一层级
+        \begin{itemize}
+          \item 第二层级
+          \begin{itemize}
+            \item 第三层级
+          \end{itemize}
+        \end{itemize}
+        \item 回到第一层级
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{有序列表:}
+      \begin{enumerate}
+        \item 第一步
+        \item 第二步
+        \item 第三步
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{文字强调:}
+      \begin{itemize}
+        \item \textbf{粗体强调}
+        \item {\kaishu 楷体强调}
+        \item \alert{警告强调}
+        \item \hl{主色高亮}
+        \item \hlg{金色高亮}
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{描述列表:}
+      \begin{description}
+        \item[\LaTeX] 排版系统
+        \item[Beamer] 演示文档类
+      \end{description}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{块环境 (Blocks)}
+  \begin{block}{普通信息块}
+    这是一个普通的 \textbf{block} 环境,用于展示一般性内容。
+    支持多行文本,自动换行。
+  \end{block}
+
+  \begin{alertblock}{提醒块}
+    这是一个 \textbf{alertblock},用于需要特别注意的信息。
+  \end{alertblock}
+
+  \begin{exampleblock}{示例块}
+    这是一个 \textbf{exampleblock},用于展示示例或最佳实践。
+  \end{exampleblock}
+\end{frame}
+
+% ═══════════════════════════════════════════
+%  3. 数学公式
+% ═══════════════════════════════════════════
+\section{数学公式}
+
+\begin{frame}{公式排版}
+  \textbf{行内公式:}
+  欧拉恒等式 $\mathrm{e}^{i\pi} + 1 = 0$ 被称作最美的数学公式。
+
+  \vspace{0.4em}
+  \textbf{行间公式:}
+  \begin{equation}
+    \int_{-\infty}^{+\infty} \mathrm{e}^{-x^{2}} \, dx = \sqrt{\pi}
+  \end{equation}
+
+  \begin{theorem}[拉格朗日中值定理]
+    若 $f \in C[a,b] \cap D(a,b)$, 则 $\exists\,\xi \in (a,b)$ 使得
+    \begin{equation*}
+      f'(\xi) = \frac{f(b) - f(a)}{b - a}.
+    \end{equation*}
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{矩阵与多行公式}
+  \textbf{矩阵:}
+  \begin{equation}
+    \mathbf{A} =
+    \begin{bmatrix}
+      a_{11} & a_{12} & \cdots & a_{1n} \\
+      a_{21} & a_{22} & \cdots & a_{2n} \\
+      \vdots & \vdots & \ddots & \vdots \\
+      a_{m1} & a_{m2} & \cdots & a_{mn}
+    \end{bmatrix}
+  \end{equation}
+
+  \textbf{多行对齐:}
+  \begin{align}
+    \nabla \cdot \mathbf{E}   &= \frac{\rho}{\varepsilon_0} \\
+    \nabla \cdot \mathbf{B}   &= 0 \\
+    \nabla \times \mathbf{E}  &= -\frac{\partial \mathbf{B}}{\partial t}
+  \end{align}
+\end{frame}
+
+% ═══════════════════════════════════════════
+%  4. 表格与图片
+% ═══════════════════════════════════════════
+\section{表格与图片}
+
+\begin{frame}{三线表}
+  \begin{table}
+    \centering
+    \caption{湖北经济学院办学历史沿革}
+    \vskip0.5em
+    \begin{tabular}{ccl}
+      \toprule
+      \textbf{序号} & \textbf{时间} & \textbf{重大事项} \\
+      \midrule
+      1 & 1907 年 & 张之洞创办"湖北商业中学堂"(办学源头) \\
+      2 & 2002 年 & 三校合并组建湖北经济学院 \\
+      3 & 2012 年 & 开始硕士研究生教育 \\
+      4 & 2021 年 & 获批硕士学位授予单位 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{图片插入}
+  \begin{figure}
+    \centering
+    \begin{beamercolorbox}[wd=0.55\textwidth, center, sep=0.9cm,
+      rounded=true]{block body}
+      \Large\color{HBUEgray}%
+      图片占位区域\\
+      \vskip0.4em
+      \footnotesize
+      \texttt{\textbackslash includegraphics}\\
+      \texttt{[width=\textbackslash textwidth]}\\
+      \texttt{\{your-figure.pdf\}}
+    \end{beamercolorbox}
+    \caption{图片插入示例 (使用占位框)}
+  \end{figure}
+\end{frame}
+
+% ═══════════════════════════════════════════
+%  5. 多栏与动画
+% ═══════════════════════════════════════════
+\section{高级排版}
+
+\begin{frame}{多栏布局}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{左栏要点}
+        \texttt{columns} 环境支持:
+        \begin{itemize}
+          \item 2--4 栏自由分割
+          \item 顶部/居中/底部对齐
+          \item 百分比宽度控制
+        \end{itemize}
+        非常适合对比展示。
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{右栏要点}
+        常用比例分配:
+        \begin{itemize}
+          \item $0.5 + 0.5$ 平分
+          \item $0.6 + 0.4$ 黄金比
+          \item $0.3 + 0.7$ 三七开
+        \end{itemize}
+        总宽度不超过 1.0 即可。
+      \end{block}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5em}
+  \begin{quote}
+    多栏布局适合信息对比、图文并茂、中英对照等场景。
+  \end{quote}
+\end{frame}
+
+\begin{frame}{逐步显示}
+  \begin{itemize}
+    \item<1-> 第一项 — 从第 1 步开始可见
+    \item<2-> 第二项 — 从第 2 步开始可见
+    \item<3-> 第三项 — 从第 3 步开始可见
+    \item<4-> 第四项 — 从第 4 步开始可见
+  \end{itemize}
+
+  \vspace{0.8em}
+  \visible<5->{%
+    \begin{alertblock}{提示}
+      使用 \texttt{<n->} 语法或 \texttt{\textbackslash pause}
+      可实现逐条逐步显示。
+    \end{alertblock}
+  }
+\end{frame}
+
+% ═══════════════════════════════════════════
+%  6. 引用与参考
+% ═══════════════════════════════════════════
+\section{参考文献}
+
+\begin{frame}[allowframebreaks]{参考文献}
+  \begin{thebibliography}{99}
+    \bibitem{sjtubeamer}
+    SJTUG.
+    \newblock SJTUBeamer: 上海交通大学 Beamer 模板.
+    \newblock GitHub, 2024.
+
+    \bibitem{ustcbeamer}
+    USTC TeX Users Group.
+    \newblock USTCBeamer: 中国科学技术大学 Beamer 模板.
+    \newblock GitHub, 2024.
+
+    \bibitem{lamport}
+    Leslie Lamport.
+    \newblock \LaTeX: A Document Preparation System.
+    \newblock Addison-Wesley, 2nd edition, 1994.
+
+    \bibitem{beamer}
+    Till Tantau, Joseph Wright, Vedran Mileti\'{c}.
+    \newblock The Beamer Class User Guide.
+    \newblock CTAN, 2024.
+  \end{thebibliography}
+\end{frame}
+
+% ═══════════════════════════════════════════
+%  致谢
+% ═══════════════════════════════════════════
+\thankyoupage
+
+\end{document}
